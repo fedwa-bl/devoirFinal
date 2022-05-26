@@ -1,0 +1,54 @@
+package com.boulekhras_diouri.gestionTickets.services;
+
+import java.util.List;
+
+import com.boulekhras_diouri.gestionTickets.models.Developpeur;
+import com.boulekhras_diouri.gestionTickets.models.Ticket;
+import com.boulekhras_diouri.gestionTickets.repositories.DeveloppeurRepository;
+import com.boulekhras_diouri.gestionTickets.repositories.TicketRepository;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class DeveloppeurServiceImpl implements DeveloppeurService {
+	  private TicketRepository ticketRepository;
+	    private DeveloppeurRepository developpeurRepository;
+		  public DeveloppeurServiceImpl(TicketRepository ticketRepository,DeveloppeurRepository developpeurRepository) {
+		        this.ticketRepository = ticketRepository;
+		        this.developpeurRepository = developpeurRepository;
+		    }
+
+	@Override
+	public List<Ticket> findAll_byIdDev(Long id) {
+		// TODO Auto-generated method stub
+		return (List<Ticket>) developpeurRepository.findAllTicketDev(id);
+	}
+
+	@Override
+	public void updateStatus(String status, long id_tic) {
+		// TODO Auto-generated method stub
+		
+		
+		Ticket myTicket = ticketRepository.findById(id_tic);
+		myTicket.setStatus(status);
+		 ticketRepository.save(myTicket);
+	}
+
+	@Override
+	public Long findIdByUsername(String nom) {
+		// TODO Auto-generated method stub
+		 return developpeurRepository.findIdDevByNom(nom);
+	}
+
+	@Override
+	public List<Developpeur> findAll() {
+		// TODO Auto-generated method stub
+		return developpeurRepository.findAll();
+	}
+
+	
+	
+	
+}
